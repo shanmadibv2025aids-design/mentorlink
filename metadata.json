@@ -1,0 +1,6 @@
+{
+  "name": "MentorLink",
+  "description": "AI-powered Peer Mentorship Platform with smart matching, booking management, real-time AI chat, and role-based dashboards.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
