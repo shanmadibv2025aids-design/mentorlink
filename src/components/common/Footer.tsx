@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Sparkles, Heart } from 'lucide-react';
+import { Logo } from './Logo';
 
 export const Footer: React.FC = () => {
   return (
@@ -9,15 +10,8 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           
           <div className="space-y-3 md:col-span-1">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center text-white">
-                <Sparkles className="w-4 h-4 fill-white/20" />
-              </div>
-              <span className="font-bold text-lg text-white tracking-tight">
-                Mentor<span className="text-blue-500">Link</span>
-              </span>
-            </div>
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <Logo size="md" />
+            <p className="text-xs text-slate-400 leading-relaxed pt-1">
               API-Driven AI Peer Mentorship Platform connecting tech learners with top engineers and leaders worldwide.
             </p>
           </div>

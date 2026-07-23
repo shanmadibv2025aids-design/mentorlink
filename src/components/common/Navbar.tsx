@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import { checkApiHealth, API_BASE_URL } from '../../services/api';
+import { Logo } from './Logo';
 import {
   Sparkles,
   Sun,
@@ -54,15 +55,8 @@ export const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         
         {/* Brand Logo */}
-        <Link to="/" className="flex items-center gap-2.5 group">
-          <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform">
-            <Sparkles className="w-5 h-5 fill-white/20" />
-          </div>
-          <div className="flex flex-col">
-            <span className="font-bold text-lg tracking-tight text-white flex items-center gap-1.5">
-              Mentor<span className="text-blue-500">Link</span>
-            </span>
-          </div>
+        <Link to="/" className="flex items-center group">
+          <Logo size="md" />
         </Link>
 
         {/* Desktop Navigation Links */}

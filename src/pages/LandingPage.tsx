@@ -5,6 +5,7 @@ import { mentorService } from '../services/api';
 import { MentorCard } from '../components/cards/MentorCard';
 import { LoadingSkeleton } from '../components/common/LoadingSkeleton';
 import { ErrorPage } from '../components/common/ErrorPage';
+import { Logo } from '../components/common/Logo';
 import {
   Sparkles,
   Compass,
@@ -39,84 +40,83 @@ export const LandingPage: React.FC = () => {
     <div className="space-y-20 pb-16">
       
       {/* Hero Section */}
-      <section className="relative pt-12 md:pt-20 text-center space-y-8 overflow-hidden">
-        {/* Subtle Background Glows */}
-        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-600/10 blur-3xl rounded-full pointer-events-none -z-10" />
-        <div className="absolute top-40 left-1/3 w-64 h-64 bg-indigo-600/10 blur-3xl rounded-full pointer-events-none -z-10" />
+      <section className="relative pt-6 md:pt-10 text-center space-y-8 overflow-hidden">
+        {/* Ambient Glowing Backdrops */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[32rem] h-[24rem] bg-gradient-to-tr from-blue-600/20 via-indigo-500/15 to-purple-600/10 blur-[100px] rounded-full pointer-events-none -z-10" />
+        <div className="absolute top-24 left-1/4 w-72 h-72 bg-blue-500/10 blur-[90px] rounded-full pointer-events-none -z-10" />
 
-        {/* AI Badge */}
+        {/* Brand Logo Banner & AI Badge */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-semibold text-blue-400 shadow-sm"
+          className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-[#151515] border border-blue-500/30 text-xs font-semibold text-blue-400 shadow-xl shadow-blue-500/10"
         >
-          <Sparkles className="w-4 h-4 text-blue-400 fill-blue-400/20" />
-          <span>Next-Gen Peer Mentorship Engine</span>
-        </motion.div>
-
-        {/* Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="max-w-4xl mx-auto px-4 space-y-4"
-        >
-          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.15]">
-            Accelerate Your Tech Career with <br />
-            <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
-              AI-Matched 1-on-1 Mentorship
-            </span>
-          </h1>
-          <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Connect directly with Staff Engineers, Research Scientists, and Product Leaders from DeepMind, Stripe, Apple, and AWS.
-          </p>
+          <Logo size="sm" showText={false} />
+          <span className="flex items-center gap-1.5">
+            <Sparkles className="w-3.5 h-3.5 text-blue-400 fill-blue-400/20" />
+            MentorLink Neural AI Engine • Active
+          </span>
         </motion.div>
 
         {/* Hero CTA Buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex flex-wrap gap-4 justify-center px-4"
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="flex flex-wrap gap-4 justify-center px-4 items-center"
         >
           <Link
             to="/matching"
-            className="px-6 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm flex items-center gap-2 shadow-lg shadow-blue-500/25 transition-all hover:scale-105"
+            className="group relative px-7 py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm flex items-center gap-2.5 shadow-xl shadow-blue-500/30 transition-all hover:scale-105 active:scale-95"
           >
-            <BrainCircuit className="w-4 h-4" />
-            Launch AI Matchmaker
-            <ArrowRight className="w-4 h-4" />
+            <BrainCircuit className="w-4 h-4 text-blue-100 group-hover:rotate-12 transition-transform" />
+            <span>Launch AI Matchmaker</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
 
           <Link
             to="/chat"
-            className="px-6 py-3.5 rounded-2xl bg-[#151515] hover:bg-[#1A1A1A] text-slate-200 font-semibold text-sm border border-white/10 shadow-sm transition-all hover:scale-105 flex items-center gap-2"
+            className="px-7 py-4 rounded-xl bg-[#151515] hover:bg-[#1C1C1C] text-slate-200 font-semibold text-sm border border-white/10 shadow-md transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
           >
             <Bot className="w-4 h-4 text-blue-400" />
             Ask AI Advisor
           </Link>
         </motion.div>
 
-        {/* Live Stats */}
-        <div className="pt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto px-4">
-          <div className="p-4 rounded-2xl bg-[#151515] border border-white/5">
-            <p className="text-2xl font-bold text-white">500+</p>
-            <p className="text-xs text-slate-500">Verified Mentors</p>
+        {/* Company Leader Badges Bar */}
+        <div className="pt-2 max-w-4xl mx-auto px-4">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 opacity-80">
+            {['DeepMind', 'Stripe', 'Apple', 'AWS', 'Google AI', 'OpenAI', 'Meta'].map((company) => (
+              <span
+                key={company}
+                className="px-3.5 py-1.5 rounded-lg bg-[#141414] border border-white/5 text-xs font-semibold text-slate-300"
+              >
+                {company}
+              </span>
+            ))}
           </div>
-          <div className="p-4 rounded-2xl bg-[#151515] border border-white/5">
-            <p className="text-2xl font-bold text-blue-400">98.8%</p>
-            <p className="text-xs text-slate-500">Match Accuracy</p>
+        </div>
+
+        {/* Live Stats Row */}
+        <div className="pt-4 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto px-4">
+          <div className="p-4 rounded-2xl bg-[#151515] border border-white/5 hover:border-blue-500/20 transition-all">
+            <p className="text-2xl sm:text-3xl font-extrabold text-white">500+</p>
+            <p className="text-xs text-slate-400 mt-0.5">Verified Mentors</p>
           </div>
-          <div className="p-4 rounded-2xl bg-[#151515] border border-white/5">
-            <p className="text-2xl font-bold text-white">12k+</p>
-            <p className="text-xs text-slate-500">Sessions Completed</p>
+          <div className="p-4 rounded-2xl bg-[#151515] border border-white/5 hover:border-blue-500/20 transition-all">
+            <p className="text-2xl sm:text-3xl font-extrabold text-blue-400">98.8%</p>
+            <p className="text-xs text-slate-400 mt-0.5">Match Accuracy</p>
           </div>
-          <div className="p-4 rounded-2xl bg-[#151515] border border-white/5">
-            <p className="text-2xl font-bold text-amber-400 flex items-center justify-center gap-1">
-              <Star className="w-4 h-4 fill-amber-400 text-amber-400" /> 4.95
+          <div className="p-4 rounded-2xl bg-[#151515] border border-white/5 hover:border-blue-500/20 transition-all">
+            <p className="text-2xl sm:text-3xl font-extrabold text-white">12k+</p>
+            <p className="text-xs text-slate-400 mt-0.5">Sessions Completed</p>
+          </div>
+          <div className="p-4 rounded-2xl bg-[#151515] border border-white/5 hover:border-blue-500/20 transition-all">
+            <p className="text-2xl sm:text-3xl font-extrabold text-amber-400 flex items-center justify-center gap-1">
+              <Star className="w-5 h-5 fill-amber-400 text-amber-400" /> 4.95
             </p>
-            <p className="text-xs text-slate-500">Average Rating</p>
+            <p className="text-xs text-slate-400 mt-0.5">Average Rating</p>
           </div>
         </div>
       </section>
