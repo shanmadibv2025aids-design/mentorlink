@@ -1,4 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth, db } from '../services/firebase';
+import { doc, getDoc } from 'firebase/firestore';
 import { User, UserRole } from '../types';
 import {
   authService,
@@ -27,14 +30,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    // Check initial auth state from storage or default to demo student for frictionless preview
+    // Check initial auth state from storage or default to demo student for preview
     const token = getStoredToken();
     const storedUser = getStoredUser();
 
     if (token && storedUser) {
       setUser(storedUser);
+      setIsLoading(false);
     } else {
-      // Initialize default student user so preview is ready to explore immediately
       const defaultUser = DEMO_USERS.student;
       setUser(defaultUser);
       setAuthStorage({
@@ -42,15 +45,38 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         refreshToken: 'default_refresh_token',
         user: defaultUser,
       });
+      setIsLoading(false);
     }
-    setIsLoading(false);
 
-    // Listen for force logouts from API response interceptors
+    // Subscribe to Firebase Auth state changes
+    const unsubscribe = onAuthStateChanged(auth, async (fbUser) => {
+      if (fbUser) {
+        try {
+          const docSnap = await getDoc(doc(db, 'profiles', fbUser.uid));
+          if (docSnap.exists()) {
+            const fetchedUser = docSnap.data() as User;
+            setUser(fetchedUser);
+            setAuthStorage({
+              token: 'fb_token_' + fbUser.uid,
+              refreshToken: 'fb_refresh_' + fbUser.uid,
+              user: fetchedUser,
+            });
+          }
+        } catch (err) {
+          console.warn('Error syncing Firebase Auth user profile:', err);
+        }
+      }
+    });
+
     const handleForceLogout = () => {
       setUser(null);
     };
     window.addEventListener('mentorlink_logout', handleForceLogout);
-    return () => window.removeEventListener('mentorlink_logout', handleForceLogout);
+
+    return () => {
+      unsubscribe();
+      window.removeEventListener('mentorlink_logout', handleForceLogout);
+    };
   }, []);
 
   const login = async (credentials: { email: string; password?: string; role?: string }): Promise<User> => {
@@ -76,7 +102,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = () => {
-    clearAuthStorage();
+    authService.logout();
     setUser(null);
   };
 
@@ -120,3 +146,4 @@ export const useAuth = () => {
   if (!context) throw new Error('useAuth must be used within AuthProvider');
   return context;
 };
+

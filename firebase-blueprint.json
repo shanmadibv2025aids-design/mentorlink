@@ -1,0 +1,94 @@
+{
+  "entities": {
+    "profiles": {
+      "title": "Profiles",
+      "description": "User profiles for students and mentors",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["student", "mentor"] },
+        "avatar": { "type": "string" },
+        "bio": { "type": "string" },
+        "title": { "type": "string" },
+        "company": { "type": "string" },
+        "skills": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "name", "email", "role"]
+    },
+    "students": {
+      "title": "Students",
+      "description": "Student specific profile data",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "department": { "type": "string" },
+        "interests": { "type": "array", "items": { "type": "string" } },
+        "learningGoals": { "type": "string" }
+      },
+      "required": ["id", "name", "email"]
+    },
+    "mentors": {
+      "title": "Mentors",
+      "description": "Mentor profiles and availability",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "title": { "type": "string" },
+        "company": { "type": "string" },
+        "skills": { "type": "array", "items": { "type": "string" } },
+        "bio": { "type": "string" },
+        "rating": { "type": "number" },
+        "reviewCount": { "type": "number" },
+        "price": { "type": "number" },
+        "availability": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["id", "name", "email", "title", "company"]
+    },
+    "bookings": {
+      "title": "Bookings",
+      "description": "1-on-1 mentorship session bookings",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "studentAvatar": { "type": "string" },
+        "mentorId": { "type": "string" },
+        "mentorName": { "type": "string" },
+        "mentorAvatar": { "type": "string" },
+        "mentorTitle": { "type": "string" },
+        "mentorCompany": { "type": "string" },
+        "date": { "type": "string" },
+        "timeSlot": { "type": "string" },
+        "topic": { "type": "string" },
+        "notes": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "cancelled", "completed"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["studentId", "mentorId", "date", "timeSlot", "topic", "status"]
+    },
+    "messages": {
+      "title": "Messages",
+      "description": "Chat messages between students, mentors, and AI",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "senderId": { "type": "string" },
+        "senderName": { "type": "string" },
+        "studentId": { "type": "string" },
+        "mentorId": { "type": "string" },
+        "text": { "type": "string" },
+        "isAi": { "type": "boolean" },
+        "timestamp": { "type": "string" }
+      },
+      "required": ["senderId", "text", "timestamp"]
+    }
+  }
+}
